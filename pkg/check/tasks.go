@@ -11,6 +11,8 @@ import (
 	"k8s.io/klog/v2"
 )
 
+// CheckFolderList tests that OCP has permissions to list volumes in Datastore.
+// This is necessary to create volumes.
 func CheckTaskPermissions(vmClient *govmomi.Client) error {
 	klog.V(4).Infof("CheckTaskPermissions started")
 

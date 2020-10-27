@@ -13,6 +13,11 @@ import (
 	"k8s.io/legacy-cloud-providers/vsphere"
 )
 
+// CheckFolderList tests that OCP has permissions to list volumes in Datastore.
+// This is necessary to create volumes.
+// The check lists datastore's "/", which must exist.
+// The check tries to list "kubevols/". It tolerates when it's missing,
+// it will be created by OCP on the first provisioning.
 func CheckFolderList(vmClient *govmomi.Client, config *vsphere.VSphereConfig) error {
 	klog.V(4).Infof("CheckFolderList started")
 

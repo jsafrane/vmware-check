@@ -20,6 +20,7 @@ type Interface interface {
 	GetInfrastructure() (*ocpv1.Infrastructure, error)
 	GetConfigMap(namespace, name string) (*v1.ConfigMap, error)
 	GetSecret(namespace, name string) (*v1.Secret, error)
+	ListNodes() ([]v1.Node, error)
 }
 
 type clients struct {
@@ -91,4 +92,14 @@ func (c clients) GetSecret(namespace, name string) (*v1.Secret, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), *Timeout)
 	defer cancel()
 	return c.KubeClient.CoreV1().Secrets(namespace).Get(ctx, name, metav1.GetOptions{})
+}
+
+func (c clients) ListNodes() ([]v1.Node, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), *Timeout)
+	defer cancel()
+	list, err := c.KubeClient.CoreV1().Nodes().List(ctx, metav1.ListOptions{})
+	if err != nil {
+		return nil, err
+	}
+	return list.Items, nil
 }
