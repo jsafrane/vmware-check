@@ -16,8 +16,8 @@ import (
 	"k8s.io/legacy-cloud-providers/vsphere"
 )
 
-// CheckProviderID tests that Nodes have spec.providerID,
-// i.e. they run with a cloud provider.
+// CheckNodes tests that Nodes have spec.providerID (i.e. they run with a cloud provider)
+// and all nodes have disk.enableUUID enabled.
 func CheckNodes(clients clients.Interface, vmClient *govmomi.Client, config *vsphere.VSphereConfig) error {
 	klog.V(4).Infof("CheckNodes started")
 

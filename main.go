@@ -50,6 +50,15 @@ func main() {
 	if err := check.CheckNodes(clients, vmClient, vmConfig); err != nil {
 		klog.Errorf("Check failed: %s", err)
 	}
+	if err := check.CheckDefaultDatastore(clients, vmConfig); err != nil {
+		klog.Errorf("Check failed: %s", err)
+	}
+	if err := check.CheckStorageClasses(clients, vmClient, vmConfig); err != nil {
+		klog.Errorf("Check failed: %s", err)
+	}
+	if err := check.CheckPVs(clients, vmClient, vmConfig); err != nil {
+		klog.Errorf("Check failed: %s", err)
+	}
 }
 
 func connect(clients clients.Interface, cfg *vsphere.VSphereConfig) (*govmomi.Client, error) {
