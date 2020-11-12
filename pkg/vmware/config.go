@@ -28,7 +28,6 @@ func ParseConfig(data string) (*vsphere.VSphereConfig, error) {
 }
 
 func NewClient(cfg *vsphere.VSphereConfig, username, password string) (*govmomi.Client, error) {
-
 	serverAddress := cfg.Workspace.VCenterIP
 	serverURL, err := soap.ParseURL(serverAddress)
 	if err != nil {
