@@ -56,6 +56,8 @@ func CheckStorageClasses(clients clients.Interface, vmClient *govmomi.Client, co
 				if err := checkStoragePolicy(v, infra, vmClient); err != nil {
 					errs = append(errs, fmt.Errorf("StorageClass %q is invalid: %s", sc.Name, err))
 				}
+			default:
+				klog.V(4).Infof("Skipping storage class %q, it does not have %s nor %s parameter", sc.Name, dsParameter, storagePolicyParameter)
 			}
 		}
 	}
